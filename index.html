@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContactHub</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/all.min.css">
+    <link rel="stylesheet" href="./css/style.css">
+    
+  
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="logo-box"><i class="fas fa-address-book"></i></div>
+                    <div>
+                        <div class="brand-name">Contact<span class="brand-purple">Hub</span></div>
+                        <div class="brand-subtitle">Smart Contact Manager</div>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn-add" onclick="openModal()">
+                        <i class="fas fa-plus"></i> Add Contact
+                    </button>
+                    <button class="icon-btn d-none d-md-flex"><i class="fas fa-bell"></i></button>
+                    <button class="icon-btn d-none d-md-flex"><i class="fas fa-cog"></i></button>
+                    <img src="./images/avatar-3.jpg" class="profile-img" alt="Profile">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="stat-icon blue"><i class="fas fa-users"></i></div>
+                                <div>
+                                    <div class="stat-label">TOTAL</div>
+                                    <div class="stat-number" id="totalCount">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="stat-icon orange"><i class="fas fa-star"></i></div>
+                                <div>
+                                    <div class="stat-label">FAVORITES</div>
+                                    <div class="stat-number" id="favCount">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-card">
+                            <div class="d-flex align-items-start gap-3">
+                                <div class="stat-icon red"><i class="fas fa-heart-pulse"></i></div>
+                                <div>
+                                    <div class="stat-label">EMERGENCY</div>
+                                    <div class="stat-number" id="emergencyCount">0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-title">All Contacts</div>
+                <div class="section-subtitle mb-3" id="contactsSubtitle">Manage and organize your 0 contacts</div>
+
+                <div style="position: relative;" class="mb-4">
+                    <i class="fas fa-search" style="position: absolute; left: 20px; top: 18px; color: #9ca3af;"></i>
+                    <input type="text" class="search-box" placeholder="Search by name, phone, or email..."
+                        id="searchBox">
+                </div>
+
+                <div id="contactsList"></div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="sidebar-section">
+                    <div class="sidebar-header">
+                        <div class="sidebar-icon orange"><i class="fas fa-star"></i></div>
+                        <div>
+                            <div class="sidebar-title">Favorites</div>
+                            <div class="sidebar-desc">Quick access to starred contacts</div>
+                        </div>
+                    </div>
+                    <div id="favoritesList"></div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-header">
+                        <div class="sidebar-icon red"><i class="fas fa-heart-pulse"></i></div>
+                        <div>
+                            <div class="sidebar-title">Emergency</div>
+                            <div class="sidebar-desc">Important contacts for urgent calls</div>
+                        </div>
+                    </div>
+                    <div id="emergencyList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Contact</h5>
+                    <button type="button" class="btn-close" onclick="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="photo-upload">
+                        <div class="photo-circle" onclick="document.getElementById('photoInput').click()">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="change-photo" onclick="document.getElementById('photoInput').click()">
+                            <i class="fas fa-camera"></i>
+                            Change Photo
+                        </div>
+                        <div>
+                            <input type="file" id="photoInput" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Full Name<span class="required-star">*</span></label>
+                        <input type="text" class="form-control" id="nameInput" placeholder="Enter full name">
+                        <div class="invalid-feedback" id="nameError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Phone Number<span class="required-star">*</span></label>
+                        <input type="text" class="form-control" id="phoneInput" placeholder="e.g., 01012345678">
+                        <div class="invalid-feedback" id="phoneError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+                        <div class="invalid-feedback" id="emailError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" id="addressInput" placeholder="Enter address">
+                        <div class="invalid-feedback" id="addressError"></div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Group</label>
+                        <select class="form-select" id="groupSelect">
+                            <option value="">Select a group</option>
+                            <option value="Family">Family</option>
+                            <option value="Friends">Friends</option>
+                            <option value="Work">Work</option>
+                            <option value="School">School</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Notes</label>
+                        <textarea class="form-control" rows="3" id="notesInput"
+                            placeholder="Add notes about this contact"></textarea>
+                    </div>
+
+                    <div class="d-flex gap-4 mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="favoriteCheck">
+                            <label class="form-check-label" for="favoriteCheck"><i class="fas fa-star" style="color: yellow;"></i> Favorite</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="emergencyCheck">
+                            <label class="form-check-label" for="emergencyCheck"><i class="fas fa-heart text-danger"></i> Emergency</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                        <button class="btn-save" onclick="saveContact()">
+                            <i class="fas fa-check"></i> Save Contact
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+        <script src="./js/all.min.js"></script>  
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+         <script src="./js/main.js"></script>
+</body>
+
+</html>
